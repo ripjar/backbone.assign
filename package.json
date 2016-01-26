@@ -1,0 +1,17 @@
+{
+  "name": "backbone.assign",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "eslint ./src"
+  },
+  "author": "James Ivings",
+  "license": "ISC",
+  "devDependencies": {
+    "backbone": "1.2.3",
+    "eslint": "1.10.3",
+    "eslint-config-airbnb": "4.0.0",
+    "lodash": "4.0.1"
+  }
+}
