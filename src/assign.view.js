@@ -1,6 +1,8 @@
 import { View } from "backbone";
 import _ from "lodash";
 
+// sub views are stored within this weakmap
+// which is keyed on each instance
 const subViewStore = new WeakMap;
 
 // memory conscious Backbone view component.
@@ -65,7 +67,10 @@ export default View.extend({
   // 5. this views DOM element is emptied and it's references destroyed
   // 6. `onClose` event is triggered
   close() {
-    if (this._isClosed) return this;
+    if (this._isClosed) {
+      console.debug('Attempt to close view that was already closed.', this);
+      return this;
+    }
     console.group("close: %s %s", this.cid, this._selector);
     this.trigger("onBeforeClose", this);
     if (this.onClose) {
@@ -82,7 +87,7 @@ export default View.extend({
     delete this._getSubViews();
 
     this._isClosed = true;
-    this.trigger("onClose");
+    this.trigger("onClose", this);
     console.groupEnd();
     return this;
   },
@@ -98,8 +103,10 @@ export default View.extend({
 
     view.setElement(this.$(selector));
     if (!options || !options.noRender) {
+      this.trigger('onBeforeRender', this);
       view._isClosed = false;
       view.render();
+      this.trigger('onRender', this);
     }
     view._selector = selector;
 
@@ -112,7 +119,7 @@ export default View.extend({
   _deleteSubView(subView) {
     const view = this._getSubView(subView);
     const subViews = subViewStore.get(this);
-    delete subViews[view];
+    delete subViews[view._selector];
     subViewStore.set(this, subViews);
     return this;
   },

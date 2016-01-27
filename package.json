@@ -4,7 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "demo": "browserify -d ./demo/main.es6 > demo/main.js",
     "test": "eslint ./src"
+  },
+  "browserify": {
+    "debug": true,
+    "transform": [
+      "babelify"
+    ]
   },
   "author": "James Ivings",
   "license": "ISC",
