@@ -1,14 +1,18 @@
 import ComponentView from "../index";
-const breadth = 10;
+let breadth = 10;
 let depth = 10;
 
 const NestedView = ComponentView.extend({
   render() {
-    this.$el.text(depth);
+    let tabs = "";
+    for (let i = 0; i < depth; i++) {
+      tabs += " ";
+    }
+    this.$el.append(`<pre>${tabs}${breadth}-${depth}</pre>`);
     if (depth-- > 0) {
-      this.$el.append(`<div class='view-${depth}'>`);
+      this.$el.append(`<div class='view-${breadth}-${depth}'>`);
       this.assign({
-        [`.view-${depth}`]: new NestedView()
+        [`.view-${breadth}-${depth}`]: new NestedView()
       });
     }
     return this;
@@ -25,15 +29,19 @@ const AppView = ComponentView.extend({
     return this;
   },
   openAll() {
-    for (let i = breadth; i > 0; i--) {
-      this.$el.append(`<div class='view-${i}'>`);
+    while (breadth-- > 0) {
+      this.$el.append(`<div class='view-${breadth}'>`);
       this.assign({
-        [`.view-${i}`]: new NestedView()
+        [`.view-${breadth}`]: new NestedView()
       });
       depth = 10;
     }
+  },
+  onClose() {
+    breadth = 10;
+    depth = 10;
+    return this;
   }
-
 });
 
 window.app = new AppView();

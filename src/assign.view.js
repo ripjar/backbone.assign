@@ -35,7 +35,7 @@ export default View.extend({
     if (selectors) {
       _.each(selectors, (v, s) => {
         console.group("open: %s %s", v.cid, s);
-        this._assignView(v, s, options)
+        this._assignView(v, s, options);
         console.groupEnd();
       });
     }
@@ -68,7 +68,7 @@ export default View.extend({
   // 6. `onClose` event is triggered
   close() {
     if (this._isClosed) {
-      console.debug('Attempt to close view that was already closed.', this);
+      console.debug("Attempt to close view that was already closed.", this);
       return this;
     }
     console.group("close: %s %s", this.cid, this._selector);
@@ -103,10 +103,10 @@ export default View.extend({
 
     view.setElement(this.$(selector));
     if (!options || !options.noRender) {
-      this.trigger('onBeforeRender', this);
+      this.trigger("onBeforeRender", this);
       view._isClosed = false;
       view.render();
-      this.trigger('onRender', this);
+      this.trigger("onRender", this);
     }
     view._selector = selector;
 
@@ -126,8 +126,11 @@ export default View.extend({
 
   _hasSubView(subView) {
     const view = this._getSubView(subView);
+    if (!view) {
+      return false;
+    }
     const subViews = subViewStore.get(this);
-    return !!subViews[view];
+    return !!subViews[view._selector];
   },
 
   _getSubView(subView) {
