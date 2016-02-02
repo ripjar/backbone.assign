@@ -149,4 +149,14 @@ export default View.extend({
     }
     return subViews;
   }
+
 });
+
+if (localStorage.getItem("memory_profile")) {
+  setInterval(() => {
+    if (localStorage.getItem("memory_profile")) {
+      console.debug(`[memory_profile] current views in memory:`);
+      console.debug(subViewStore);
+    }
+  }, 5000);
+}
