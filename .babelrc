@@ -1,0 +1,4 @@
+{
+  "only": ["lib", "test/*.js", "test/client"],
+  "presets": ["es2015"]
+}

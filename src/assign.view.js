@@ -84,7 +84,7 @@ export default View.extend({
     this.$el.empty();
     delete this.$el;
     delete this.el;
-    delete this._getSubViews();
+    subViewStore.delete(this);
 
     this._isClosed = true;
     this.trigger("onClose", this);
@@ -155,7 +155,7 @@ export default View.extend({
 if (localStorage.getItem("memory_profile")) {
   setInterval(() => {
     if (localStorage.getItem("memory_profile")) {
-      console.debug(`[memory_profile] current views in memory:`);
+      console.debug(`[memory_profile] current views in memory: ${subViewStore.length}`);
       console.debug(subViewStore);
     }
   }, 5000);
