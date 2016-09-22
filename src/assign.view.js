@@ -1,5 +1,5 @@
-import { View } from "backbone";
-import _ from "lodash";
+const View = require("backbone").View;
+const _ = require("lodash");
 
 // sub views are stored within this weakmap
 // which is keyed on each instance
@@ -13,7 +13,7 @@ const subViewStore = new WeakMap;
 // when this view is closed, each sub-view will
 // also be closed in turn and their dom elements
 // destroyed, allowing for sure garbage collection
-export default View.extend({
+const ComponentView = View.extend({
   // assign a subView to a selector found within
   // this view. Eg;
   //
@@ -160,3 +160,5 @@ if (localStorage.getItem("memory_profile")) {
     }
   }, 5000);
 }
+
+module.exports = ComponentView;

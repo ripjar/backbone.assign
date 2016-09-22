@@ -1,2 +1,2 @@
-import ComponentView from "./src/assign.view";
-export default ComponentView;
+const ComponentView = require("./src/assign.view");
+module.exports = ComponentView;

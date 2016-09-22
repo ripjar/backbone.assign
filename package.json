@@ -3,9 +3,12 @@
   "version": "0.0.3",
   "description": "",
   "main": "index.js",
+  "browser": "./dist/backbone.assign.js",
   "scripts": {
     "demo": "browserify -d ./demo/main.es6 > demo/main.js",
-    "test": "eslint ./src"
+    "test": "eslint ./src",
+    "build-debug": "browserify index.js -d --s backbone-assign > dist/backbone.assign.js",
+    "build-min": "browserify index.js --s backbone-assign | uglifyjs -c > dist/backbone.assign.js"
   },
   "browserify": {
     "debug": true,
@@ -16,9 +19,17 @@
   "author": "James Ivings",
   "license": "ISC",
   "devDependencies": {
+    "babel-cli": "6.14.0",
+    "babel-preset-es2015": "6.14.0",
+    "babelify": "7.3.0",
     "backbone": "1.2.3",
+    "browserify": "13.1.0",
     "eslint": "1.10.3",
     "eslint-config-airbnb": "4.0.0",
-    "lodash": "4.0.1"
+    "jquery": "3.1.0",
+    "lodash": "4.0.1",
+    "lodash.isfunction": "3.0.8",
+    "uglify-js": "2.7.3",
+    "watchify": "3.7.0"
   }
 }
